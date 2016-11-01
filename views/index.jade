@@ -1,0 +1,254 @@
+extends layout
+
+block content
+  if succeed == true && vali != false && finish != true
+    if passed
+    - var len = passed.length
+    - var i = 0
+    h3.text-center.bg-primary 一条可行的安全序列为：{
+      each item,index in passed
+        if index != len-1
+          span P#{item},
+        else
+          span P#{item}
+      |},请在表单下方发送一条请求向量，或返回首页。
+  else if succeed == true && finish == true
+    if passed
+    - var len = passed.length
+    - var i = 0
+    h3.text-center.bg-primary 接受请求成功，接受后，一条可行的安全序列为：{
+      each item,index in passed
+        if index != len-1
+          span P#{item},
+        else
+          span P#{item}
+      |}，请继续发送请求向量，或返回首页
+  else if finish == false
+    h3.text-center.bg-danger 接受请求失败，请重新填入请求资源数。
+    if passed
+    - var len = passed.length
+    - var i = 0
+    h3.text-center.bg-danger 安全序列停止时的状态：{
+      each item,index in passed
+        if index != len-1
+          span P#{item},
+        else
+          span P#{item}
+      |}
+  else if succeed == false
+    h3.text-center.bg-danger 系统中不存在一条安全序列，请重新填入详细资源数。
+    if passed
+    - var len = passed.length
+    - var i = 0
+    h3.text-center.bg-danger 安全序列停止时的状态：{
+      each item,index in passed
+        if index != len-1
+          span P#{item},
+        else
+          span P#{item}
+      |}
+  else if vali == false
+    h3.text-center.bg-danger 输入的请求向量验证不通过，请确保请求进程存在，其请求的资源小于可用资源向量，以及它的需求资源向量
+  else
+    h3.text-center 请先填入详细资源数，之后验证系统安全性。
+
+  form(method="post",action="/validate")
+    table.table.table-bordered
+      thead
+        td #
+        td Max
+        td Allocation
+        td Need
+        td Available
+        td Finish
+        td Operate
+      tr
+        td
+        td &nbsp&nbsp A &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp B &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp C
+        td &nbsp&nbsp A &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp B &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp C
+        td &nbsp&nbsp A &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp B &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp C
+        td &nbsp&nbsp A &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp B &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp C
+        td
+        td
+          if succeed === undefined
+            button.btn.btn-success.add &nbsp&nbspadd&nbsp&nbsp
+          else if  succeed === false
+            button.btn.btn-success.add &nbsp&nbspadd&nbsp&nbsp
+          else
+            button.btn.btn-success.add(disabled="disabled") &nbsp&nbspadd&nbsp&nbsp
+      tr
+        td P0
+        td
+          .row.row0
+            .col-xs-4
+              if succeed !== true
+                input.col0.max.form-control(type="text",name="[0][0][0]",value="#{table[0][0][0]}")
+              else
+                input(disabled="disabled").max.form-control(type="text",name="[0][0][0]",value="#{table[0][0][0]}")
+            .col-xs-4
+              if succeed !== true
+                input.col1.max.form-control(type="text",name="[0][0][1]",value="#{table[0][0][1]}")
+              else
+                input(disabled="disabled").max.form-control(type="text",name="[0][0][1]",value="#{table[0][0][1]}")
+            .col-xs-4
+              if succeed !== true
+                input.col2.max.form-control(type="text",name="[0][0][2]",value="#{table[0][0][2]}")
+              else
+                input(disabled="disabled").max.form-control(type="text",name="[0][0][2]",value="#{table[0][0][2]}")
+        td
+          .row.row1
+            .col-xs-4
+              if succeed !== true
+                input.col0.form-control(type="text",name="[0][1][0]",value="#{table[0][1][0]}")
+              else
+                input(disabled="disabled").form-control(type="text",name="[0][1][0]",value="#{table[0][1][0]}")
+            .col-xs-4
+              if succeed !== true
+                input.col1.form-control(type="text",name="[0][1][1]",value="#{table[0][1][1]}")
+              else
+                input(disabled="disabled").form-control(type="text",name="[0][1][1]",value="#{table[0][1][1]}")
+            .col-xs-4
+              if succeed !== true
+                input.col2.form-control(type="text",name="[0][1][2]",value="#{table[0][1][2]}")
+              else
+                input(disabled="disabled").form-control(type="text",name="[0][1][2]",value="#{table[0][1][2]}")
+        td
+          .row.row2
+            .col-xs-4
+              if succeed !== true
+                input.col0.form-control(type="text",name="[0][2][0]",value="#{table[0][2][0]}")
+              else
+                input(disabled="disabled").form-control(type="text",name="[0][2][0]",value="#{table[0][2][0]}")
+            .col-xs-4
+              if succeed !== true
+                input.col1.form-control(type="text",name="[0][2][1]",value="#{table[0][2][1]}")
+              else
+                input(disabled="disabled").form-control(type="text",name="[0][2][1]",value="#{table[0][2][1]}")
+            .col-xs-4
+              if succeed !== true
+                input.col2.form-control(type="text",name="[0][2][2]",value="#{table[0][2][2]}")
+              else
+                input(disabled="disabled").form-control(type="text",name="[0][2][2]",value="#{table[0][2][2]}")
+        if table
+          td.avai(rowspan="#{lenOfP}")
+            .row
+              .col-xs-4
+                if succeed !== true
+                  input.form-control(type="text",name="[avai][0]",value="#{table.avai[0]}")
+                else
+                  input(disabled="disabled").form-control(type="text",name="[avai][0]",value="#{table.avai[0]}")
+              .col-xs-4
+                if succeed !== true
+                  input.form-control(type="text",name="[avai][1]",value="#{table.avai[1]}")
+                else
+                  input(disabled="disabled").form-control(type="text",name="[avai][1]",value="#{table.avai[1]}")
+              .col-xs-4
+                if succeed !== true
+                  input.form-control(type="text",name="[avai][2]",value="#{table.avai[2]}")
+                else
+                  input(disabled="disabled").form-control(type="text",name="[avai][2]",value="#{table.avai[2]}")
+        td
+          if succeed == true
+            button.btn-primary.btn(disabled="disabled") true
+          else
+            button.btn-danger.btn(disabled="disabled") false
+        td
+
+      each item , index in table
+        if index > 0
+          tr
+            td.name P#{index}
+            td
+              .row.row0
+                .col-xs-4
+                  if succeed !== true
+                    input.col0.max.form-control(type="text",name="[#{index}][0][0]",value="#{item[0][0]}")
+                  else
+                    input(disabled="disabled").col1.col1.max.form-control(type="text",name="[#{index}][0][0]",value="#{item[0][0]}")
+                .col-xs-4
+                  if succeed !== true
+                    input.col1.max.form-control(type="text",name="[#{index}][0][1]",value="#{item[0][1]}")
+                  else
+                    input(disabled="disabled").max.form-control(type="text",name="[#{index}][0][1]",value="#{item[0][1]}")
+                .col-xs-4
+                  if succeed !== true
+                    input.col2.max.form-control(type="text",name="[#{index}][0][2]",value="#{item[0][2]}")
+                  else
+                    input(disabled="disabled").max.form-control(type="text",name="[#{index}][0][2]",value="#{item[0][2]}")
+            td
+              .row.row1
+                .col-xs-4
+                  if succeed !== true
+                    input.col0.form-control(type="text",name="[#{index}][1][0]",value="#{item[1][0]}")
+                  else
+                    input(disabled="disabled").form-control(type="text",name="[#{index}][1][0]",value="#{item[1][0]}")
+                .col-xs-4
+                  if succeed !== true
+                    input.col1.form-control(type="text",name="[#{index}][1][1]",value="#{item[1][1]}")
+                  else
+                    input(disabled="disabled").form-control(type="text",name="[#{index}][1][1]",value="#{item[1][1]}")
+                .col-xs-4
+                  if succeed !== true
+                    input.col2.form-control(type="text",name="[#{index}][1][2]",value="#{item[1][2]}")
+                  else
+                    input(disabled="disabled").form-control(type="text",name="[#{index}][1][2]",value="#{item[1][2]}")
+            td
+              .row.row2
+                .col-xs-4
+                  if succeed !== true
+                    input.col0.form-control(type="text",name="[#{index}][2][0]",value="#{item[2][0]}")
+                  else
+                    input(disabled="disabled").form-control(type="text",name="[#{index}][2][0]",value="#{item[2][0]}")
+                .col-xs-4
+                  if succeed !== true
+                    input.col1.form-control(type="text",name="[#{index}][2][1]",value="#{item[2][1]}")
+                  else
+                    input(disabled="disabled").form-control(type="text",name="[#{index}][2][1]",value="#{item[2][1]}")
+                .col-xs-4
+                  if succeed !== true
+                    input.col2.form-control(type="text",name="[#{index}][2][2]",value="#{item[2][2]}")
+                  else
+                    input(disabled="disabled").form-control(type="text",name="[#{index}][2][2]",value="#{item[2][2]}")
+            td
+              if succeed == true
+                button.btn-primary.btn(disabled="disabled") true
+              else
+                button.btn-danger.btn(disabled="disabled") false
+            td
+              if succeed === undefined
+                button.btn-danger.btn.del delete
+              else if  succeed === false
+                button.btn-danger.btn.del delete
+              else
+                button(disabled="disabled").btn-danger.btn.del delete
+    if succeed == true
+      button#submit.btn.btn-primary(disabled="disabled",type="submit") 系统安全
+    else
+      button#submit.btn.btn-primary(type="submit") 验证此系统安全性
+    a.btn-default.btn.pull-right(href="/") 返回首页
+  br
+  if succeed == true
+    form.form-inline(method="post",action="/sendReq")
+      .row
+        .col-md-8
+          .form-group
+            label(for="reqName") 请输入一条请求向量:&nbsp&nbsp Request:&nbsp&nbsp
+            input.form-control#reqName(type="text" name="requ[3]" value="#{requ[3]}" style="width:50px")
+          span &nbsp&nbsp(&nbsp&nbsp
+          .form-group
+            label.sr-only(for="first") first
+            input.form-control#first(type="text" name="requ[0]" value="#{requ[0]}" style="width:50px" )
+          span &nbsp&nbsp,&nbsp&nbsp
+          .form-group
+            label.sr-only(for="second") second
+            input.form-control#second(type="text" name="requ[1]" value="#{requ[1]}" style="width:50px")
+          span &nbsp&nbsp,&nbsp&nbsp
+          .form-group
+            label.sr-only(for="third") third
+            input.form-control#third(type="text" name="requ[2]" value="#{requ[2]}" style="width:50px")
+          span &nbsp&nbsp)&nbsp&nbsp
+          button.btn.btn-primary(type="submit") 发出请求
+
+  script(src="/javascripts/index.js" type="text/javascript")
+
+
