@@ -2,7 +2,7 @@ Banker_Algorithm
 ================
 
 银行家算法，NODEJS实现。
-
+20143223 李子翔
 
 ================
 
@@ -16,7 +16,7 @@ Banker_Algorithm
   	    |-- npm install
 
   	|-- 部署
-  		|-- 目录下：forever ./bin/www
+  		|-- 目录下： ./bin/www
 	
 ###3，运行
   	|-- 根据每个进程(默认为5个，可自行添加删除)的Allocation，Need，Available向量，使用
